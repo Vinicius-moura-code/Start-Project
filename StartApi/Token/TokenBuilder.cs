@@ -6,11 +6,11 @@ namespace StartApi.Token
 {
     public class TokenBuilder
     {
-        private SecurityKey securityKey = null;
+        private SecurityKey? securityKey = null;
         private string subject = "";
         private string issuer = "";
         private string audience = "";
-        private Dictionary<string, string> claims = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> claims = new();
         private int expiryInMinutes = 5;
 
 
@@ -46,8 +46,8 @@ namespace StartApi.Token
 
         public TokenBuilder AddClaims(Dictionary<string, string> claims)
         {
-            this.claims.Union(claims);
-            return this;
+            return (TokenBuilder)this.claims.Union(claims);
+             
         }
 
         public TokenBuilder AddExpiry(int expiryInMinutes)

@@ -8,15 +8,16 @@ namespace StartApi.Controllers
 {
     public class TokenController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
 
         public TokenController(SignInManager<AppUser> signInManager,
            UserManager<AppUser> userManager)
         {
-            _userManager = userManager;
+            UserManager = userManager;
             _signInManager = signInManager;
         }
+
+        public UserManager<AppUser> UserManager { get; }
 
         [AllowAnonymous]
         [Produces("application/json")]
@@ -38,7 +39,7 @@ namespace StartApi.Controllers
                  .AddExpiry(5)
                  .Builder();
 
-                return Ok(token.value);
+                return Ok(token.Value);
             }
             else
             {

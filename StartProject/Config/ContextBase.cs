@@ -29,7 +29,7 @@ namespace StartProject.Config
 
 
         //connection string database
-        private string GetStringConnection()
+        private static string GetStringConnection()
         {
             return "DATA SOURCE=DESKTOP-2GB4NEA\\SQLEXPRESS;Integrated Security=SSPI;Initial Catalog=StartProject";
         }
