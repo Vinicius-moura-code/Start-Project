@@ -4,7 +4,7 @@ namespace StartApi.Token
 {
     public class TokenJWT
     {
-        private JwtSecurityToken token;
+        private readonly JwtSecurityToken token;
 
         internal TokenJWT(JwtSecurityToken token)
         {
@@ -13,6 +13,6 @@ namespace StartApi.Token
 
         public DateTime ValidTo => token.ValidTo;
 
-        public string value => new JwtSecurityTokenHandler().WriteToken(this.token);
+        public string Value => new JwtSecurityTokenHandler().WriteToken(this.token);
     }
 }

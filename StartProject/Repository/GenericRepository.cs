@@ -17,56 +17,47 @@ namespace StartProject.Repository
 
         public async Task Add(T Object)
         {
-            using (ContextBase? data = new ContextBase(_db))
-            {
-                await data.Set<T>().AddAsync(Object);
-                await data.SaveChangesAsync();
-            }
+            using ContextBase? data = new(_db);
+            await data.Set<T>().AddAsync(Object);
+            await data.SaveChangesAsync();
         }
 
         public async Task Delete(T Object)
         {
-            using (ContextBase? data = new ContextBase(_db))
-            {
-                data.Set<T>().Remove(Object);
-                await data.SaveChangesAsync();
-            }
+            using ContextBase? data = new(_db);
+            data.Set<T>().Remove(Object);
+            await data.SaveChangesAsync();
         }
         public async Task<T> GetEntityById(int Id)
         {
-            using (ContextBase? data = new ContextBase(_db))
-            {
+            using ContextBase? data = new(_db);
 #pragma warning disable CS8603 // Possible null reference return.
-                return await data.Set<T>().FindAsync(Id);
+            return await data.Set<T>().FindAsync(Id);
 #pragma warning restore CS8603 // Possible null reference return.
-            }
         }
 
         public async Task<List<T>> GetAll()
         {
-            using (ContextBase? data = new ContextBase(_db))
-            {
-                return await data.Set<T>().AsNoTracking().ToListAsync();
-            }
+            using ContextBase? data = new(_db);
+            return await data.Set<T>().AsNoTracking().ToListAsync();
         }
 
 
 
         public async Task Update(T Object)
         {
-            using (ContextBase? data = new ContextBase(_db))
-            {
-                data.Set<T>().Update(Object);
-                await data.SaveChangesAsync();
-            }
+            using ContextBase? data = new(_db);
+            data.Set<T>().Update(Object);
+            await data.SaveChangesAsync();
         }
 
 
         #region Disposed https://docs.microsoft.com/pt-br/dotnet/standard/garbage-collection/implementing-dispose
         // Flag: Has Dispose already been called?
         bool disposed = false;
+
         // Instantiate a SafeHandle instance.
-        SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
+        readonly SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 
 
 
